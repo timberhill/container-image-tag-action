@@ -14,6 +14,10 @@ inputs:
     description: "Commit message pattern that indicates a major version bump"
     required: true
     default: "#major"
+  include-v:
+    description: "Whether or not to include 'v' prefix in the version"
+    required: true
+    default: "true"
 outputs:
   new-tag:
     description: "The new image version"
@@ -24,3 +28,4 @@ runs:
     - ${{ inputs.image }}
     - ${{ inputs.minor-pattern }}
     - ${{ inputs.major-pattern }}
+    - ${{ inputs.include-v }}
