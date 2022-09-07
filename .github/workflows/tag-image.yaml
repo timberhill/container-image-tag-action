@@ -23,4 +23,4 @@ jobs:
           image: timberhill/container-image-tag-action
 
       - name: Action output
-        run: echo "input image\:${{ steps.action.outputs.image }}"
+        run: echo "${{ steps.action.outputs.image }}"
