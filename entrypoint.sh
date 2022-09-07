@@ -4,8 +4,5 @@ log () {
     echo "$(date) -- $1"
 }
 
-echo "Image name: $1"
-time=$(date)
-echo "::set-output name=time::$time"
-
 log $1
+echo "::set-output name=image::$1"

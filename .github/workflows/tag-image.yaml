@@ -1,0 +1,26 @@
+---
+name: Tag image
+
+on:
+  push:
+    paths-ignore:
+      - "**/README.md"
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - name: Bump image version
+        id: action
+        uses: timberhill/container-image-tag-action@main
+        with:
+          image: timberhill/container-image-tag-action
+
+      - name: Action output
+        run: echo "The time was ${{ steps.action.outputs.image }}"
