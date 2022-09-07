@@ -1,0 +1,16 @@
+---
+name: "Container image tag"
+description: "Bump a semantic version tag of a container image in Github CR"
+inputs:
+  image:
+    description: "ghcr.io image path"
+    required: true
+    default: "timberhill/container-image-tag-action"
+outputs:
+  new-tag:
+    description: "The new image version"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.image }}
