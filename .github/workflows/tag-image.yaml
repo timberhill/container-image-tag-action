@@ -23,4 +23,4 @@ jobs:
           image: timberhill/container-image-tag-action
 
       - name: Action output
-        run: echo "The time was ${{ steps.action.outputs.image }}"
+        run: echo "input image\:${{ steps.action.outputs.image }}"
