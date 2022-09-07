@@ -18,7 +18,7 @@ jobs:
 
       - name: Bump image version
         id: action
-        uses: timberhill/container-image-tag-action@initial-setup
+        uses: timberhill/container-image-tag-action@git-history
         with:
           image: timberhill/container-image-tag-action
 
