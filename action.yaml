@@ -22,3 +22,5 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.image }}
+    - ${{ inputs.minor-pattern }}
+    - ${{ inputs.major-pattern }}
