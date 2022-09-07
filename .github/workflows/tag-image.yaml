@@ -1,0 +1,26 @@
+---
+name: Tag image
+
+on:
+  push:
+    paths-ignore:
+      - "**/README.md"
+    branches:
+      - "*" # run on all branches for now
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - name: Bump image version
+        id: action
+        uses: timberhill/container-image-tag-action@initial-setup
+        with:
+          image: timberhill/container-image-tag-action
+
+      - name: Action output
+        run: echo "input image\:${{ steps.action.outputs.image }}"
