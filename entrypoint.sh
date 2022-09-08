@@ -35,7 +35,7 @@ git fetch --all
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 debug "Current branch is $current_branch"
 
-log=$(git log main..$current_branch --pretty='%B')
+log=$(git log main..HEAD --pretty='%B')
 debug "Git log: $log"
 
 # bump the version
