@@ -4,7 +4,8 @@
 
 A Github Action to bump an image version in ghcr.io, allowing separate versioning of the repo and multiple container images that are built within it.
 
-The action only works with [semantic versions](semver.org) and increments a version based on commit messages.
+The action only works with [semantic versions](semver.org).
+It is also only checks the latest commit for that, as it's designed to run on a PR merge to the main branch. Make sure to include the major/minor pattern (see inputs) in the PR title.
 
 ## Inputs
 
