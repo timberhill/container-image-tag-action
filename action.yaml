@@ -19,7 +19,7 @@ inputs:
     required: false
     default: "false"
 outputs:
-  new-tag:
+  image-tag:
     description: "The new image version"
 runs:
   using: "docker"

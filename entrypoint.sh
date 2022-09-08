@@ -18,10 +18,6 @@ debug "Minor pattern: $minor_pattern"
 debug "Major pattern: $major_pattern"
 debug "Prefix: $prefix"
 
-# Add safe directory option for github workspace to disable fatal error
-# when runnin as root in the container
-# git config --global --add safe.directory /github/workspace
-
 # get the latest image tag
 # https://docs.github.com/en/rest/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user
 container_tags=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user/packages/container/container-image-tag-action/versions | jq -r '.[].metadata.container.tags' | grep -vE "\[|\]" | sed "s/\"//g" | sed "s/ //g")
@@ -54,6 +50,6 @@ case "$log" in
     ;;
 esac
 
-debug "$part version bump: $tag -> $new_tag"
+debug "$part version bump: $prefix$tag -> $prefix$new_tag"
 
-echo "::set-output name=imagetag::$new_tag"
+echo "::set-output name=image-tag::$prefix$new_tag"
