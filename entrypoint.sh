@@ -35,6 +35,8 @@ git fetch --all
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 debug "Current branch is $current_branch"
 
+branches=$(git branch --list > bb && cat bb)
+debug "Known branches: $branches"
 log=$(git log main..HEAD --pretty='%B')
 debug "Git log: $log"
 
