@@ -31,7 +31,8 @@ tag="$(semver $container_tags | sort | tail -n 1)"
 debug "Last semver container tag: $tag"
 
 # get git history to determine the bump level
-git fetch --all
+# git fetch --all
+git fetch origin main:main
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 debug "Current branch is $current_branch"
 
