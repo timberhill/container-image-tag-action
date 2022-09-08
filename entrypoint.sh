@@ -5,8 +5,8 @@ debug () {
 }
 
 image_name=$1
-minor_pattern=$2
-major_pattern=$3
+minor_pattern=${2:-#minor}
+major_pattern=${3:-#major}
 prefix=""
 if [$4 -eq "true"];
 then
@@ -27,14 +27,7 @@ tag="$(semver $container_tags | sort | tail -n 1)"
 debug "Last semver container tag: $tag"
 
 # get git history to determine the bump level
-# git fetch --all
-git fetch origin main:main
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-debug "Current branch is $current_branch"
-
-branches=$(git branch --list > bb && cat bb)
-debug "Known branches: $branches"
-log=$(git log main..HEAD --pretty='%B')
+log=$(git show --summary --pretty='%B')
 debug "Git log: $log"
 
 # bump the version
@@ -43,10 +36,10 @@ case "$log" in
         new_tag=$(semver -i major $tag); part="major"
     ;;
     *$minor_pattern* )
-    new_tag=$(semver -i minor $tag); part="minor"
+        new_tag=$(semver -i minor $tag); part="minor"
     ;;
     * )
-    new_tag=$(semver -i patch $tag); part="patch"
+        new_tag=$(semver -i patch $tag); part="patch"
     ;;
 esac
 
