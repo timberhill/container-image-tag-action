@@ -5,12 +5,27 @@ inputs:
   image:
     description: "ghcr.io image path"
     required: true
-    default: "timberhill/container-image-tag-action"
+    # default: "timberhill/container-image-tag-action"
+  minor-pattern:
+    description: "Commit message pattern that indicates a minor version bump"
+    required: false
+    default: "#minor"
+  major-pattern:
+    description: "Commit message pattern that indicates a major version bump"
+    required: false
+    default: "#major"
+  include-v:
+    description: "Whether or not to include 'v' prefix in the version"
+    required: false
+    default: "false"
 outputs:
-  new-tag:
+  image-tag:
     description: "The new image version"
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
     - ${{ inputs.image }}
+    - ${{ inputs.minor-pattern }}
+    - ${{ inputs.major-pattern }}
+    - ${{ inputs.include-v }}

@@ -1,15 +1,38 @@
 # Container image tag action
 
->WORK IN PROGRESS
+[![Tag image](https://github.com/timberhill/container-image-tag-action/actions/workflows/tag-image.yaml/badge.svg)](https://github.com/timberhill/container-image-tag-action/actions/workflows/tag-image.yaml)
+
+A Github Action to bump an image version in ghcr.io, allowing separate versioning of the repo and multiple container images that are built within it.
+
+The action only works with [semantic versions](semver.org) and increments a version based on commit messages.
 
 ## Inputs
-TBD
+
+`image`: _(required)_ Path to the image within ghcr.io (<OWNER>/<IMAGE_NAME>)
+
+`minor-pattern`: (default: `#minor`) Commit message pattern that indicates a minor version bump
+
+`major-pattern`: (default: `#major`) Commit message pattern that indicates a major version bump
+
+`include-v`: (default: `false`) Whether or not to include `v` prefix in the version"
 
 ## Outputs
-TBD
+
+`image-tag`: New version tag
 
 ## Example usage
 
-uses: timberhill/container-image-tag-action@v1
-with:
-  image: timberhill/container-image-tag-action
+```yaml
+- name: Bump image version
+  id: action
+  uses: timberhill/container-image-tag-action@main
+  with:
+    image: ${{ env.IMAGE }}
+  env:
+    GITHUB_TOKEN: "${{ secrets.PAT }}"
+
+- name: New image tag
+  run: echo "${{ steps.action.outputs.image-tag }}"
+```
+
+A full example workflow is used in this repo: [.github/workflows/tag-image.yaml](.github/workflows/tag-image.yaml)
