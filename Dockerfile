@@ -6,7 +6,7 @@ RUN apk update && apk add git curl jq
 RUN export PATH=/usr/local/bin:$PATH && npm install semver -g
 COPY entrypoint.sh /entrypoint.sh
 
-RUN adduser -u 1001 -g 1001 actionboi
+RUN adduser -u 1001 --disabled-password --no-create-home actionboi 
 USER actionboi
 
 ENTRYPOINT ["/entrypoint.sh"]
