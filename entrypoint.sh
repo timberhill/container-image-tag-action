@@ -18,6 +18,8 @@ debug "Minor pattern: $minor_pattern"
 debug "Major pattern: $major_pattern"
 debug "Prefix: $prefix"
 
+git config --global --add safe.directory /github/workspace
+
 # get the latest image tag
 # https://docs.github.com/en/rest/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user
 container_tags=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user/packages/container/container-image-tag-action/versions | jq -r '.[].metadata.container.tags' | grep -vE "\[|\]" | sed "s/\"//g" | sed "s/ //g")
