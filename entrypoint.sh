@@ -18,7 +18,9 @@ debug "Minor pattern: $minor_pattern"
 debug "Major pattern: $major_pattern"
 debug "Prefix: $prefix"
 
-git config --global --add safe.directory /github/workspace
+# Add safe directory option for github workspace to disable fatal error
+# when runnin as root in the container
+# git config --global --add safe.directory /github/workspace
 
 # get the latest image tag
 # https://docs.github.com/en/rest/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user
