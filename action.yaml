@@ -5,19 +5,19 @@ inputs:
   image:
     description: "ghcr.io image path"
     required: true
-    default: "timberhill/container-image-tag-action"
+    # default: "timberhill/container-image-tag-action"
   minor-pattern:
     description: "Commit message pattern that indicates a minor version bump"
-    required: true
+    required: false
     default: "#minor"
   major-pattern:
     description: "Commit message pattern that indicates a major version bump"
-    required: true
+    required: false
     default: "#major"
   include-v:
     description: "Whether or not to include 'v' prefix in the version"
-    required: true
-    default: "true"
+    required: false
+    default: "false"
 outputs:
   new-tag:
     description: "The new image version"

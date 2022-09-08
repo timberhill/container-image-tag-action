@@ -21,6 +21,8 @@ jobs:
         uses: timberhill/container-image-tag-action@git-history
         with:
           image: timberhill/container-image-tag-action
+        env:
+          GITHUB_TOKEN: "${{ secrets.PAT }}"
 
       - name: Action output
         run: echo "${{ steps.action.outputs.image }}"
