@@ -9,17 +9,22 @@ It is also only checks the latest commit for that, as it's designed to run on a 
 
 ## Inputs
 
-`image`: _(required)_ Path to the image within ghcr.io (<OWNER>/<IMAGE_NAME>)
+### `image`
+  _(required)_ Path to the image within ghcr.io (`<OWNER>/<IMAGE_NAME>`)
 
-`minor-pattern`: (default: `#minor`) Commit message pattern that indicates a minor version bump
+### `minor-pattern`
+  (default: `#minor`) Commit message pattern that indicates a minor version bump
 
-`major-pattern`: (default: `#major`) Commit message pattern that indicates a major version bump
+### `major-pattern`
+  (default: `#major`) Commit message pattern that indicates a major version bump
 
-`include-v`: (default: `false`) Whether or not to include `v` prefix in the version"
+### `include-v`
+  (default: `false`) Whether or not to include `v` prefix in the version"
 
 ## Outputs
 
-`image-tag`: New version tag
+### `image-tag`
+  New version tag
 
 ## Example usage
 
