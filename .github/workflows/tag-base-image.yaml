@@ -14,7 +14,7 @@ env:
   IMAGE: ${{ github.repository_owner }}/container-image-tag-base
 
 jobs:
-  test-tag:
+  tag-action:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -58,5 +58,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ GitHub.event_name != 'pull_request' }}
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ steps.test-tag.outputs.image-tag }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ steps.tag-action.outputs.image-tag }}
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
