@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "Dockerfile.base"
+      - ".github/workflows/tag-base-image.yaml"
     branches:
       - "*"
 

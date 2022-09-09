@@ -3,8 +3,9 @@ name: Tag image
 
 on:
   push:
-    paths-ignore:
-      - "**/README.md"
+    paths:
+      - "Dockerfile.base"
+      - ".github/workflows/tag-image.yaml"
     branches:
       - "*"
 
