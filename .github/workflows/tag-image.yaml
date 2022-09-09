@@ -9,6 +9,7 @@ on:
       - "main"
 
 env:
+  REGISTRY: ghcr.io
   IMAGE: ${{ github.repository_owner }}/container-image-tag-action
 
 jobs:
@@ -48,5 +49,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE }}:${{ steps.action.outputs.image-tag }}
-            ${{ env.IMAGE }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ steps.action.outputs.image-tag }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
