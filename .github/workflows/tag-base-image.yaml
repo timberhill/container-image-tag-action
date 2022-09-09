@@ -35,7 +35,7 @@ jobs:
       image-tag: ${{ steps.action.outputs.image-tag }}
   
   build-image:
-    needs: tag-action
+    needs: [tag-action]
     runs-on: ubuntu-latest
     steps:
       - name: New image tag
