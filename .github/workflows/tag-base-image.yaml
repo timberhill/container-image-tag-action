@@ -35,11 +35,11 @@ jobs:
       image-tag: ${{ steps.action.outputs.image-tag }}
   
   build-image:
-    needs: [tag-action]
+    needs: tag-action
     runs-on: ubuntu-latest
     steps:
       - name: New image tag
-        run: echo "${{ steps.tag-action.outputs.image-tag }}"
+        run: echo "${{ needs.tag-action.outputs.image-tag }}"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
