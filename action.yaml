@@ -25,7 +25,7 @@ inputs:
   debug:
     description: "Enable debug logging"
     required: false
-    default: "0.1.0"
+    default: "false"
 outputs:
   image-tag:
     description: "The new image version"
