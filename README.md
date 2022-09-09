@@ -19,10 +19,13 @@ It is also only checks the latest commit for that, as it's designed to run on a 
   (default: `#major`) Commit message pattern that indicates a major version bump
 
 ### `include-v`
-  (default: `false`) Whether or not to include `v` prefix in the version"
+  (default: `false`) Whether or not to include `v` prefix in the version
 
 ### `initial-tag`
-  Initial tag to create on first image push or first semver
+  (default: `0.1.0`) Initial tag to create on first image push or first semver
+
+### `debug`
+  (default: `false`) Enable debug logging
 
 ## Outputs
 
