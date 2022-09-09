@@ -1,5 +1,5 @@
 ---
-name: Tag image
+name: Tag base image
 
 on:
   push:
