@@ -18,6 +18,10 @@ inputs:
     description: "Whether or not to include 'v' prefix in the version"
     required: false
     default: "false"
+  initial-tag:
+    description: "Initial tag to create on first image push or first semver"
+    required: false
+    default: "0.1.0"
 outputs:
   image-tag:
     description: "The new image version"
@@ -29,3 +33,4 @@ runs:
     - ${{ inputs.minor-pattern }}
     - ${{ inputs.major-pattern }}
     - ${{ inputs.include-v }}
+    - ${{ inputs.initial-tag }}
