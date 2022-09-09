@@ -53,12 +53,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.PAT }}
+      
+      - name: DEBUG
+        run: ls -lash
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           context: ./
-          file: ./Dockerfile.base
+          file: Dockerfile.base
           platforms: linux/amd64,linux/arm64
           push: ${{ GitHub.event_name != 'pull_request' }}
           tags: |
