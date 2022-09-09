@@ -6,7 +6,7 @@ on:
     paths:
       - "Dockerfile.base"
     branches:
-      - "main"
+      - "*"
 
 env:
   REGISTRY: ghcr.io
@@ -48,7 +48,7 @@ jobs:
           context: ./
           file: Dockerfile.base
           platforms: linux/amd64,linux/arm64
-          push: true
+          push: ${{ GitHub.event_name != 'pull_request' }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ steps.action.outputs.image-tag }}
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
