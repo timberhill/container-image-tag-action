@@ -21,6 +21,9 @@ It is also only checks the latest commit for that, as it's designed to run on a 
 ### `include-v`
   (default: `false`) Whether or not to include `v` prefix in the version"
 
+### `initial-tag`
+  Initial tag to create on first image push or first semver
+
 ## Outputs
 
 ### `image-tag`

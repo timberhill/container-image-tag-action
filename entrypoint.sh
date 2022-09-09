@@ -4,31 +4,55 @@ debug () {
     echo "$(date) -- DEBUG -- $1"
 }
 
-image_name=$1
+image_name=$(echo "$1" | cut -d "/" -f 2)
 minor_pattern=${2:-#minor}
 major_pattern=${3:-#major}
+include_v=${4:-false}
+initial_tag=${5:-0.1.0}
+
 prefix=""
-if [$4 -eq "true"];
-then
+if [ "$include_v" = true ]; then
   prefix="v"
 fi
+
+
 
 debug "Image name: $image_name"
 debug "Minor pattern: $minor_pattern"
 debug "Major pattern: $major_pattern"
-debug "Prefix: $prefix"
+debug "Include 'v': $include_v, prefix: '$prefix'"
+debug "Initial tag: $initial_tag"
 
-# get the latest image tag
+# get image tags
 # https://docs.github.com/en/rest/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user
-container_tags=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user/packages/container/container-image-tag-action/versions | jq -r '.[].metadata.container.tags' | grep -vE "\[|\]" | sed "s/\"//g" | sed "s/ //g")
-debug "Container tags: \n$container_tags"
+api_response=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user/packages/container/$image_name/versions)
+debug "API response: $api_response"
 
+image_exists=$(echo $api_response | jq -r 'if . | type == "array" then "true" else "false" end')
+debug "Image exists: $image_exists"
+# check if the image exists
+if [ "$image_exists" = "false" ]; then
+  debug "Image not found, using the initial tag $initial_tag"
+  echo "::set-output name=image-tag::$prefix$initial_tag"
+  exit 0
+fi
+
+# get the container tags
+container_tags=$(echo $api_response | jq -r '.[].metadata.container.tags' | grep -vE "\[|\]" | sed "s/\"//g" | sed "s/ //g")
+debug "Container tags: $(echo $container_tags | sed "s/\n//g" | sed "s/ /, /g")"
 tag="$(semver $container_tags | sort | tail -n 1)"
-debug "Last semver container tag: $tag"
+# check if the image contains previous semver tags
+if [ "$tag" = "" ]; then
+  debug "Image does not contain any semver tag, using the initial tag $initial_tag"
+  echo "::set-output name=image-tag::$prefix$initial_tag"
+  exit 0
+else
+  debug "Last semver container tag: $tag"
+fi
 
 # get git history to determine the bump level
 log=$(git show --summary --pretty='%B')
-debug "Git log: $log"
+debug "Git log: $(echo $log | sed "s/\n//g")"
 
 # bump the version
 case "$log" in
