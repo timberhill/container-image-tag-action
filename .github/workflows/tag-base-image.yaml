@@ -3,14 +3,14 @@ name: Tag image
 
 on:
   push:
-    paths-ignore:
-      - "**/README.md"
+    paths:
+      - "Dockerfile.base"
     branches:
       - "*"
 
 env:
   REGISTRY: ghcr.io
-  IMAGE: ${{ github.repository_owner }}/container-image-tag-action
+  IMAGE: ${{ github.repository_owner }}/container-image-tag-base
 
 jobs:
   tag:
@@ -46,6 +46,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./
+          file: Dockerfile.base
           platforms: linux/amd64,linux/arm64
           push: ${{ GitHub.event_name != 'pull_request' }}
           tags: |
