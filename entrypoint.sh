@@ -45,7 +45,7 @@ if [ "$image_exists" = "false" ]; then
 fi
 
 # get the container tags
-container_tags=$(echo $api_response | jq -r '.[].metadata.container.tags' | grep -vE "\[|\]" | sed "s/\"//g" | sed "s/ //g")
+container_tags=$(echo $api_response | jq -r '.[].metadata.container.tags' | jq -rs 'add | .[]')
 debug "Container tags: $(echo $container_tags | sed "s/\n//g" | sed "s/ /, /g")"
 tag="$(semver $container_tags | sort | tail -n 1)"
 # check if the image contains previous semver tags
